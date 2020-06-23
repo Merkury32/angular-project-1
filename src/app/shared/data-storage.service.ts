@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs/operators";
 
 import { Recipe } from "../recipes/recipe.model";
 import { RecipeService } from "../recipes/recipe.service";
@@ -12,10 +11,7 @@ export class DataStorageService {
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
     this.http
-      .put(
-        "https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json",
-        recipes
-      )
+      .put("https://angular-project-8cd5e.firebaseio.com/recipes.json", recipes)
       .subscribe((response) => {
         console.log(response);
       });
