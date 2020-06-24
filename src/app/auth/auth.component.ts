@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { NgForm } from "@angular/forms";
+
 import { AuthService } from "./auth.service";
 
 @Component({
@@ -29,11 +30,12 @@ export class AuthComponent {
         (resData) => {
           console.log(resData);
         },
-        (error) => {
-          console.log(error);
+        (errorMessage) => {
+          console.log(errorMessage);
         }
       );
     }
+
     form.reset();
   }
 }
