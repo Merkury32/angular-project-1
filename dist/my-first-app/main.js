@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<nav class=\"navbar navbar-default\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <a href=\"#\" class=\"navbar-brand\">Recipe Book</a>\n    </div>\n\n    <div class=\"collapse navbar-collapse\">\n      <ul class=\"nav navbar-nav\">\n        <li routerLinkActive=\"active\" *ngIf=\"isAuthenticated\">\n          <a routerLink=\"/recipes\">Recipes</a>\n        </li>\n        <li routerLinkActive=\"active\" *ngIf=\"!isAuthenticated\">\n          <a routerLink=\"/auth\">Authenticate</a>\n        </li>\n        <li routerLinkActive=\"active\">\n          <a routerLink=\"/shopping-list\">Shopping List</a>\n        </li>\n      </ul>\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li *ngIf=\"isAuthenticated\">\n          <a style=\"cursor: pointer;\">Logout</a>\n        </li>\n        <li class=\"dropdown\" appDropdown *ngIf=\"isAuthenticated\">\n          <a style=\"cursor: pointer;\" class=\"dropdown-toggle\" role=\"button\"\n            >Manage <span class=\"caret\"></span\n          ></a>\n          <ul class=\"dropdown-menu\">\n            <li>\n              <a style=\"cursor: pointer;\" (click)=\"onSaveData()\">Save Data</a>\n            </li>\n            <li>\n              <a style=\"cursor: pointer;\" (click)=\"onFetchData()\">Fetch Data</a>\n            </li>\n          </ul>\n        </li>\n      </ul>\n    </div>\n  </div>\n</nav>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<nav class=\"navbar navbar-default\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <a href=\"#\" class=\"navbar-brand\">Recipe Book</a>\n    </div>\n\n    <div class=\"collapse navbar-collapse\">\n      <ul class=\"nav navbar-nav\">\n        <li routerLinkActive=\"active\" *ngIf=\"isAuthenticated\">\n          <a routerLink=\"/recipes\">Recipes</a>\n        </li>\n        <li routerLinkActive=\"active\" *ngIf=\"!isAuthenticated\">\n          <a routerLink=\"/auth\">Authenticate</a>\n        </li>\n        <li routerLinkActive=\"active\">\n          <a routerLink=\"/shopping-list\">Shopping List</a>\n        </li>\n      </ul>\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li *ngIf=\"isAuthenticated\">\n          <a style=\"cursor: pointer;\" (click)=\"onLogout()\">Logout</a>\n        </li>\n        <li class=\"dropdown\" appDropdown *ngIf=\"isAuthenticated\">\n          <a style=\"cursor: pointer;\" class=\"dropdown-toggle\" role=\"button\"\n            >Manage <span class=\"caret\"></span\n          ></a>\n          <ul class=\"dropdown-menu\">\n            <li>\n              <a style=\"cursor: pointer;\" (click)=\"onSaveData()\">Save Data</a>\n            </li>\n            <li>\n              <a style=\"cursor: pointer;\" (click)=\"onFetchData()\">Fetch Data</a>\n            </li>\n          </ul>\n        </li>\n      </ul>\n    </div>\n  </div>\n</nav>\n");
 
 /***/ }),
 
@@ -185,6 +185,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _recipes_recipe_edit_recipe_edit_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./recipes/recipe-edit/recipe-edit.component */ "./src/app/recipes/recipe-edit/recipe-edit.component.ts");
 /* harmony import */ var _recipes_recipes_resolver_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./recipes/recipes-resolver.service */ "./src/app/recipes/recipes-resolver.service.ts");
 /* harmony import */ var _auth_auth_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./auth/auth.component */ "./src/app/auth/auth.component.ts");
+/* harmony import */ var _auth_auth_guard__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./auth/auth-guard */ "./src/app/auth/auth-guard.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -203,11 +204,13 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var appRoutes = [
     { path: "", redirectTo: "recipes", pathMatch: "full" },
     {
         path: "recipes",
         component: _recipes_recipes_component__WEBPACK_IMPORTED_MODULE_2__["RecipesComponent"],
+        canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_9__["AuthGuard"]],
         children: [
             { path: "", component: _recipes_recipe_start_recipe_start_component__WEBPACK_IMPORTED_MODULE_4__["RecipeStartComponent"] },
             { path: "new", component: _recipes_recipe_edit_recipe_edit_component__WEBPACK_IMPORTED_MODULE_6__["RecipeEditComponent"] },
@@ -266,25 +269,38 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm5/core.js");
+/* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth/auth.service */ "./src/app/auth/auth.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 
+
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(authService) {
+        this.authService = authService;
     }
+    AppComponent.prototype.ngOnInit = function () {
+        this.authService.autoLogin();
+    };
+    AppComponent.ctorParameters = function () { return [
+        { type: _auth_auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"] }
+    ]; };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: "app-root",
             template: __importDefault(__webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/app.component.html")).default,
             styles: [__importDefault(__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")).default]
-        })
+        }),
+        __metadata("design:paramtypes", [_auth_auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -323,6 +339,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _recipes_recipe_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./recipes/recipe.service */ "./src/app/recipes/recipe.service.ts");
 /* harmony import */ var _auth_auth_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./auth/auth.component */ "./src/app/auth/auth.component.ts");
 /* harmony import */ var _shared_loading_spinner_loading_spinner_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./shared/loading-spinner/loading-spinner.component */ "./src/app/shared/loading-spinner/loading-spinner.component.ts");
+/* harmony import */ var _auth_auth_interceptor_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./auth/auth-interceptor.service */ "./src/app/auth/auth-interceptor.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -332,6 +349,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
 
 
 
@@ -379,11 +397,144 @@ var AppModule = /** @class */ (function () {
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_14__["AppRoutingModule"],
             ],
-            providers: [_shopping_list_shopping_list_service__WEBPACK_IMPORTED_MODULE_13__["ShoppingListService"], _recipes_recipe_service__WEBPACK_IMPORTED_MODULE_17__["RecipeService"]],
+            providers: [
+                _shopping_list_shopping_list_service__WEBPACK_IMPORTED_MODULE_13__["ShoppingListService"],
+                _recipes_recipe_service__WEBPACK_IMPORTED_MODULE_17__["RecipeService"],
+                {
+                    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"],
+                    useClass: _auth_auth_interceptor_service__WEBPACK_IMPORTED_MODULE_20__["AuthInceptorService"],
+                    multi: true,
+                },
+            ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]],
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/auth/auth-guard.ts":
+/*!************************************!*\
+  !*** ./src/app/auth/auth-guard.ts ***!
+  \************************************/
+/*! exports provided: AuthGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGuard", function() { return AuthGuard; });
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm5/router.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm5/core.js");
+/* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth.service */ "./src/app/auth/auth.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+var AuthGuard = /** @class */ (function () {
+    function AuthGuard(authService, router) {
+        this.authService = authService;
+        this.router = router;
+    }
+    AuthGuard.prototype.canActivate = function (route, router) {
+        var _this = this;
+        return this.authService.user.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (user) {
+            var isAuth = !!user;
+            if (isAuth) {
+                return true;
+            }
+            return _this.router.createUrlTree(["/auth"]);
+        })
+        // tap((isAuth) => {
+        //   if (!isAuth) {
+        //     this.router.navigate(["/auth"]);
+        //   }
+        // })
+        );
+    };
+    AuthGuard.ctorParameters = function () { return [
+        { type: _auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_0__["Router"] }
+    ]; };
+    AuthGuard = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({ providedIn: "root" }),
+        __metadata("design:paramtypes", [_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_0__["Router"]])
+    ], AuthGuard);
+    return AuthGuard;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/auth/auth-interceptor.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/auth/auth-interceptor.service.ts ***!
+  \**************************************************/
+/*! exports provided: AuthInceptorService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthInceptorService", function() { return AuthInceptorService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm5/http.js");
+/* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth.service */ "./src/app/auth/auth.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+var AuthInceptorService = /** @class */ (function () {
+    function AuthInceptorService(authService) {
+        this.authService = authService;
+    }
+    AuthInceptorService.prototype.intercept = function (req, next) {
+        return this.authService.user.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["exhaustMap"])(function (user) {
+            if (!user) {
+                return next.handle(req);
+            }
+            var modifedReq = req.clone({
+                params: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]().set("auth", user.token),
+            });
+            return next.handle(modifedReq);
+        }));
+    };
+    AuthInceptorService.ctorParameters = function () { return [
+        { type: _auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"] }
+    ]; };
+    AuthInceptorService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]])
+    ], AuthInceptorService);
+    return AuthInceptorService;
 }());
 
 
@@ -488,6 +639,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var _user_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./user.model */ "./src/app/auth/user.model.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -505,10 +657,12 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var AuthService = /** @class */ (function () {
-    function AuthService(http) {
+    function AuthService(http, router) {
         this.http = http;
-        this.user = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
+        this.router = router;
+        this.user = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
     }
     AuthService.prototype.signup = function (email, password) {
         var _this = this;
@@ -534,10 +688,41 @@ var AuthService = /** @class */ (function () {
             _this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
         }));
     };
+    AuthService.prototype.autoLogin = function () {
+        var userData = JSON.parse(localStorage.getItem("userData"));
+        if (!userData) {
+            return;
+        }
+        var loadedUser = new _user_model__WEBPACK_IMPORTED_MODULE_4__["User"](userData.email, userData.id, userData._token, new Date(userData._tokenEcpirationDate));
+        if (loadedUser.token) {
+            this.user.next(loadedUser);
+            var expirationDuration = new Date(userData._tokenEcpirationDate).getTime() -
+                new Date().getTime();
+            this.autoLogout(expirationDuration);
+        }
+    };
+    AuthService.prototype.logout = function () {
+        this.user.next(null);
+        this.router.navigate(["/auth"]);
+        localStorage.removeItem("userData");
+        if (this.tokenExpirationTimer) {
+            clearTimeout(this.tokenExpirationTimer);
+        }
+        this.tokenExpirationTimer = null;
+    };
+    AuthService.prototype.autoLogout = function (expirationDuration) {
+        var _this = this;
+        console.log(expirationDuration);
+        this.tokenExpirationTimer = setTimeout(function () {
+            _this.logout();
+        }, expirationDuration);
+    };
     AuthService.prototype.handleAuthentication = function (email, userId, token, expiresIn) {
         var expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
         var user = new _user_model__WEBPACK_IMPORTED_MODULE_4__["User"](email, userId, token, expirationDate);
         this.user.next(user);
+        this.autoLogout(expiresIn * 1000);
+        localStorage.setItem("userData", JSON.stringify(user));
     };
     AuthService.prototype.handlerError = function (errorRes) {
         var errorMessage = "An unknown error occurred!";
@@ -558,11 +743,12 @@ var AuthService = /** @class */ (function () {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(errorMessage);
     };
     AuthService.ctorParameters = function () { return [
-        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
+        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] }
     ]; };
     AuthService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({ providedIn: "root" }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
     ], AuthService);
     return AuthService;
 }());
@@ -644,7 +830,6 @@ var HeaderComponent = /** @class */ (function () {
     }
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.onFetchData();
         this.userSub = this.authService.user.subscribe(function (user) {
             _this.isAuthenticated = !!user;
             console.log(!user);
@@ -656,6 +841,9 @@ var HeaderComponent = /** @class */ (function () {
     };
     HeaderComponent.prototype.onFetchData = function () {
         this.dataStorageService.fetchRecipes().subscribe();
+    };
+    HeaderComponent.prototype.onLogout = function () {
+        this.authService.logout();
     };
     HeaderComponent.prototype.ngOnDestroy = function () {
         this.userSub.unsubscribe();
@@ -1357,6 +1545,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm5/http.js");
 /* harmony import */ var _recipes_recipe_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../recipes/recipe.service */ "./src/app/recipes/recipe.service.ts");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../auth/auth.service */ "./src/app/auth/auth.service.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -1384,10 +1573,12 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var DataStorageService = /** @class */ (function () {
-    function DataStorageService(http, recipeService) {
+    function DataStorageService(http, recipeService, authService) {
         this.http = http;
         this.recipeService = recipeService;
+        this.authService = authService;
     }
     DataStorageService.prototype.storeRecipes = function () {
         var recipes = this.recipeService.getRecipes();
@@ -1411,11 +1602,14 @@ var DataStorageService = /** @class */ (function () {
     };
     DataStorageService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
-        { type: _recipes_recipe_service__WEBPACK_IMPORTED_MODULE_2__["RecipeService"] }
+        { type: _recipes_recipe_service__WEBPACK_IMPORTED_MODULE_2__["RecipeService"] },
+        { type: _auth_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"] }
     ]; };
     DataStorageService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({ providedIn: "root" }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _recipes_recipe_service__WEBPACK_IMPORTED_MODULE_2__["RecipeService"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _recipes_recipe_service__WEBPACK_IMPORTED_MODULE_2__["RecipeService"],
+            _auth_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"]])
     ], DataStorageService);
     return DataStorageService;
 }());
