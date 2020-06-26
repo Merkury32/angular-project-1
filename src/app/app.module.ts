@@ -16,7 +16,7 @@ import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinne
 import { AuthInceptorService } from "./auth/auth-interceptor.service";
 import { AlertComponent } from "./shared/alert/alert.component";
 import { PlaceholderDirective } from "./shared/placeholder/placeholder.directive";
-import { RecipesModule } from "./recipes/recipec.model";
+import { RecipesModule } from "./recipes/recipes.module";
 
 @NgModule({
   declarations: [
