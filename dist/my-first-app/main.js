@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"row\">\r\n  <div class=\"col-xs-12 col-md-6 col-md-offset-3\">\r\n    <!-- <div class=\"alert alert-danger\" *ngIf=\"error\">\r\n      <p>{{ error }}</p>\r\n    </div> -->\r\n    <!-- <app-alert\r\n      [message]=\"error\"\r\n      *ngIf=\"error\"\r\n      (click)=\"onHandleError()\"\r\n    ></app-alert> -->\r\n    <div *ngIf=\"isLoading\" style=\"text-align: center;\">\r\n      <app-loading-spinner></app-loading-spinner>\r\n    </div>\r\n    <form #authForm=\"ngForm\" (ngSubmit)=\"onSubmit(authForm)\" *ngIf=\"!isLoading\">\r\n      <div class=\"form-group\">\r\n        <label for=\"email\">E-Mail</label>\r\n        <input\r\n          type=\"email\"\r\n          id=\"email\"\r\n          class=\"form-control\"\r\n          ngModel\r\n          name=\"email\"\r\n          required\r\n          email\r\n        />\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"password\">Password</label>\r\n        <input\r\n          type=\"password\"\r\n          id=\"password\"\r\n          class=\"form-control\"\r\n          ngModel\r\n          name=\"password\"\r\n          required\r\n          minlength=\"6\"\r\n        />\r\n      </div>\r\n      <div>\r\n        <button\r\n          class=\"btn btn-primary\"\r\n          type=\"submit\"\r\n          [disabled]=\"!authForm.valid\"\r\n        >\r\n          {{ isLoginMode ? \"Login\" : \"Sign Up\" }}\r\n        </button>\r\n        |\r\n        <button class=\"btn btn-primary\" type=\"button\" (click)=\"onSwitchMode()\">\r\n          Switch to {{ isLoginMode ? \"Sign Up\" : \"Login\" }}\r\n        </button>\r\n      </div>\r\n    </form>\r\n  </div>\r\n</div>\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-template appPlaceholder> </ng-template>\r\n<div class=\"row\">\r\n  <div class=\"col-xs-12 col-md-6 col-md-offset-3\">\r\n    <!-- <div class=\"alert alert-danger\" *ngIf=\"error\">\r\n      <p>{{ error }}</p>\r\n    </div> -->\r\n    <!-- <app-alert\r\n      [message]=\"error\"\r\n      *ngIf=\"error\"\r\n      (click)=\"onHandleError()\"\r\n    ></app-alert> -->\r\n    <div *ngIf=\"isLoading\" style=\"text-align: center;\">\r\n      <app-loading-spinner></app-loading-spinner>\r\n    </div>\r\n    <form #authForm=\"ngForm\" (ngSubmit)=\"onSubmit(authForm)\" *ngIf=\"!isLoading\">\r\n      <div class=\"form-group\">\r\n        <label for=\"email\">E-Mail</label>\r\n        <input\r\n          type=\"email\"\r\n          id=\"email\"\r\n          class=\"form-control\"\r\n          ngModel\r\n          name=\"email\"\r\n          required\r\n          email\r\n        />\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"password\">Password</label>\r\n        <input\r\n          type=\"password\"\r\n          id=\"password\"\r\n          class=\"form-control\"\r\n          ngModel\r\n          name=\"password\"\r\n          required\r\n          minlength=\"6\"\r\n        />\r\n      </div>\r\n      <div>\r\n        <button\r\n          class=\"btn btn-primary\"\r\n          type=\"submit\"\r\n          [disabled]=\"!authForm.valid\"\r\n        >\r\n          {{ isLoginMode ? \"Login\" : \"Sign Up\" }}\r\n        </button>\r\n        |\r\n        <button class=\"btn btn-primary\" type=\"button\" (click)=\"onSwitchMode()\">\r\n          Switch to {{ isLoginMode ? \"Sign Up\" : \"Login\" }}\r\n        </button>\r\n      </div>\r\n    </form>\r\n  </div>\r\n</div>\r\n");
 
 /***/ }),
 
@@ -426,6 +426,7 @@ var AppModule = /** @class */ (function () {
                 },
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]],
+            entryComponents: [_shared_alert_alert_component__WEBPACK_IMPORTED_MODULE_21__["AlertComponent"]],
         })
     ], AppModule);
     return AppModule;
@@ -574,6 +575,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth.service */ "./src/app/auth/auth.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm5/router.js");
 /* harmony import */ var _shared_alert_alert_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/alert/alert.component */ "./src/app/shared/alert/alert.component.ts");
+/* harmony import */ var _shared_placeholder_placeholder_directive__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../shared/placeholder/placeholder.directive */ "./src/app/shared/placeholder/placeholder.directive.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -586,6 +588,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
 
 
 
@@ -632,15 +635,33 @@ var AuthComponent = /** @class */ (function () {
     AuthComponent.prototype.onHandleError = function () {
         this.error = null;
     };
+    AuthComponent.prototype.ngOnDestroy = function () {
+        if (this.closeSub) {
+            this.closeSub.unsubscribe();
+        }
+    };
     AuthComponent.prototype.showErrorAlert = function (message) {
+        var _this = this;
         //const AlertCmp = new AlertComponent();
         var alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(_shared_alert_alert_component__WEBPACK_IMPORTED_MODULE_3__["AlertComponent"]);
+        var hostViewContainerRef = this.alertHost.viewContainerRef;
+        hostViewContainerRef.clear();
+        var componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
+        componentRef.instance.message = message;
+        this.closeSub = componentRef.instance.close.subscribe(function () {
+            _this.closeSub.unsubscribe();
+            hostViewContainerRef.clear();
+        });
     };
     AuthComponent.ctorParameters = function () { return [
         { type: _auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
         { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ComponentFactoryResolver"] }
     ]; };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_shared_placeholder_placeholder_directive__WEBPACK_IMPORTED_MODULE_4__["PlaceholderDirective"], { static: false }),
+        __metadata("design:type", _shared_placeholder_placeholder_directive__WEBPACK_IMPORTED_MODULE_4__["PlaceholderDirective"])
+    ], AuthComponent.prototype, "alertHost", void 0);
     AuthComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: "app-auth",
