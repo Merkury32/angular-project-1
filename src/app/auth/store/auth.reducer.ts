@@ -38,12 +38,13 @@ export function authReducer(
         user: null,
       };
     case AuthActions.LOGIN_START:
+    case AuthActions.SIGNUP_START:
       return {
         ...state,
         authError: null,
         loading: true,
       };
-    case AuthActions.AUTENTHICATE_FAIL:
+    case AuthActions.AUTHENTICATE_FAIL:
       return {
         ...state,
         user: null,

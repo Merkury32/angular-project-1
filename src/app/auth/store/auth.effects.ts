@@ -25,7 +25,7 @@ const handleAuthentication = (
   token: string
 ) => {
   const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
-  return new AuthActions.AutenthicateSucces({
+  return new AuthActions.AuthenticateSucces({
     email: email,
     userId: userId,
     token: token,
