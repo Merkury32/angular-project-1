@@ -8,6 +8,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { SharedModule } from "./shared/shared.module";
 import { CoreModule } from "./core.module";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { StoreRouterConnectingModule } from "@ngrx/router-store";
 
 import { StoreModule } from "@ngrx/store";
 
@@ -25,6 +26,7 @@ import { environment } from "../environments/environment";
     SharedModule,
     CoreModule,
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
+    StoreRouterConnectingModule.forRoot(),
     StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([AuthEffects]),
   ],
