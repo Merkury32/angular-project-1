@@ -6,13 +6,11 @@ import {
   OnInit,
 } from "@angular/core";
 import { NgForm } from "@angular/forms";
-
 import { Subscription } from "rxjs";
+import { Store } from "@ngrx/store";
 
 import { AlertComponent } from "../shared/alert/alert.component";
 import { PlaceholderDirective } from "../shared/placeholder/placeholder.directive";
-import { Store } from "@ngrx/store";
-
 import * as fromApp from "../store/app.reducer";
 import * as AuthActions from "./store/auth.actions";
 
@@ -57,12 +55,9 @@ export class AuthComponent implements OnInit, OnDestroy {
     const password = form.value.password;
 
     if (this.isLoginMode) {
-      // Obs = this.authService.login(email, password);
+      // authObs = this.authService.login(email, password);
       this.store.dispatch(
-        new AuthActions.LoginStart({
-          email: email,
-          password: password,
-        })
+        new AuthActions.LoginStart({ email: email, password: password })
       );
     } else {
       this.store.dispatch(
@@ -87,7 +82,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   private showErrorAlert(message: string) {
-    //const AlertCmp = new AlertComponent();
+    // const alertCmp = new AlertComponent();
     const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
       AlertComponent
     );
