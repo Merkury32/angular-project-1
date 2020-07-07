@@ -19,7 +19,6 @@
     "@angular/platform-browser": "^10.0.2",
     "@angular/platform-browser-dynamic": "^10.0.2",
     "@angular/router": "^10.0.2",
-    "@nestjs/ng-universal": "^2.0.1",
     "@ngrx/effects": "^8.0.0-beta.2",
     "@ngrx/router-store": "^8.0.0-beta.2",
     "@ngrx/store": "^8.0.0-beta.2",
